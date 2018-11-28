@@ -161,6 +161,7 @@ var app = function() {
         data: {
             form_title: "",
             form_content: "",
+            form_budget: "",
             post_list: [],
             star_indices: [1, 2, 3, 4, 5]
         },
