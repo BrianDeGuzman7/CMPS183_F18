@@ -13,7 +13,14 @@
     var is_logged_in = {{='false' if auth.user is None else 'true'}};
 </script>
 {{end}}
-
+<div class="Title">
+<h1>
+	Budget Tracker
+</h1>
+</div>
+<h1>
+	Budget Tracker
+</h1>
 <div class="main_content">
 
     <div id="vue-div" class="display:none">
@@ -23,7 +30,7 @@
       <div id="add_post" style="display:none">
         <div class="container form_row">
           <div class="label quarter">
-            Title:
+            Transaction:
           </div>
           <div class="form threequarters">
             <input v-model="form_title" placeholder="Enter the post title"/>
@@ -31,7 +38,15 @@
         </div>
         <div class="container form_row">
           <div class="label quarter">
-            Content:
+            Title
+          </div>
+          <div class="form threequarters">
+            <textarea v-model="form_content" placeholder="Enter the content of your post"></textarea>
+          </div>
+        </div>
+         <div class="container form_row">
+          <div class="label quarter">
+            Description
           </div>
           <div class="form threequarters">
             <textarea v-model="form_content" placeholder="Enter the content of your post"></textarea>
@@ -47,7 +62,7 @@
       </div>
 
       <!-- Message in case there are no posts. -->
-      <div v-if="post_list.length === 0">There are no posts.</div>
+      <div v-if="post_list.length === 0">Please enter you budget.</div>
 
       <!-- We display the posts. -->
       <div id="post_list">
