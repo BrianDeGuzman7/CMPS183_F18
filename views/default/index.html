@@ -23,18 +23,22 @@
       <div id="add_post" style="display:none">
         <div class="container form_row">
           <div class="label quarter">
-            Title:
+            Transaction Name:
           </div>
           <div class="form threequarters">
-            <input v-model="form_title" placeholder="Enter the post title"/>
+            <input v-model="form_title" placeholder="Enter Transaction Title"/>
           </div>
         </div>
         <div class="container form_row">
           <div class="label quarter">
-            Content:
+            Enter Amount:
           </div>
           <div class="form threequarters">
-            <textarea v-model="form_content" placeholder="Enter the content of your post"></textarea>
+            <textarea v-model="form_content" placeholder="Enter Amount of Money"></textarea>
+            <select name ="Transaction_Type" v-model="form_type">
+              <option value="Debit">Debit</option>
+              <option value="Credit">Credit</option>
+            </select>
           </div>
         </div>
         <div class="container form_row"><div class="quarter"></div>
@@ -54,6 +58,7 @@
         <div class="post_div" v-for="post in post_list">
           <div class="post_title">${post.post_title}</div>
           <div class="post_content">${post.post_content}</div>
+          <div class="post_content">${post.post_type}</div>
           <div class="attributes">
             
             <!-- Code for likes. -->
