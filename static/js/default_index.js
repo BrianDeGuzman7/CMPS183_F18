@@ -20,11 +20,13 @@ var app = function() {
         $.web2py.disableElement($("#add-post"));
         var sent_title = self.vue.form_title; // Makes a copy 
         var sent_content = self.vue.form_content; // 
+        var sent_budget = self.vue.form_budget;
         $.post(add_post_url,
             // Data we are sending.
             {
                 post_title: self.vue.form_title,
-                post_content: self.vue.form_content
+                post_content: self.vue.form_content,
+                post_budget: self.vue.form_budget,
             },
             // What do we do when the post succeeds?
             function (data) {
@@ -33,11 +35,13 @@ var app = function() {
                 // Clears the form.
                 self.vue.form_title = "";
                 self.vue.form_content = "";
+                self.bue.form_budget = "";
                 // Adds the post to the list of posts. 
                 var new_post = {
                     id: data.post_id,
                     post_title: sent_title,
-                    post_content: sent_content
+                    post_content: sent_content,
+                    post_budget: sent_budget,
                 };
                 self.vue.post_list.unshift(new_post);
                 // We re-enumerate the array.
