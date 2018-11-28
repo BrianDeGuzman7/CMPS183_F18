@@ -9,7 +9,9 @@ div.main_content {
 }
 div.main_content div.form-onequarter{
   width: 33.33%;
-
+}
+div.main_content div.twoThirds {
+  width: 66%;
 }
 /* line 8, ../sass/_main.scss */
 div.main_content div.form_row {

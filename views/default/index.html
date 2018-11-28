@@ -34,7 +34,7 @@
         </div>
         <div class="container form_row">
           <div class="label quarter">
-            Title
+           	Transaction:
           </div>
           <div class="form threequarters">
             <textarea v-model="form_budget" placeholder="Enter the Amount"></textarea>
@@ -59,7 +59,6 @@
 	<div class="form-onequarter">
       <!-- Message in case there are no posts. -->
       <div v-if="post_list.length === 0">Please enter you budget.</div>
-
       <!-- We display the posts. -->
       <div id="post_list">
         <div class="post_div" v-for="post in post_list">
