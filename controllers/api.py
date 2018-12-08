@@ -3,10 +3,11 @@
 
 @auth.requires_signature()
 def add_post():
+
     post_id = db.post.insert(
         post_title=request.vars.post_title,
-        post_content=request.vars.post_content,
-        post_type=request.vars.post_type,
+        post_total=request.vars.post_total,
+        post_category=request.vars.post_category,
     )
     # We return the id of the new post, so we can insert it along all the others.
     return response.json(dict(post_id=post_id))
@@ -21,9 +22,9 @@ def get_post_list():
             results.append(dict(
                 id=row.id,
                 post_title=row.post_title,
-                post_content=row.post_content,
+                post_total=row.post_total,
                 post_author=row.post_author,
-                post_type=row.post_type,
+                post_category=row.post_category,
                 like = False, # Anyway not used as the user is not logged in. 
                 rating = None, # As above
             ))
@@ -39,9 +40,9 @@ def get_post_list():
             results.append(dict(
                 id=row.post.id,
                 post_title=row.post.post_title,
-                post_content=row.post.post_content,
+                post_total=row.post.post_total,
                 post_author=row.post.post_author,
-                post_type=row.post.post_type,
+                post_category=row.post.post_category,
                 like = False if row.user_like.id is None else True,
                 rating = None if row.user_star.id is None else row.user_star.rating,
             ))

@@ -16,11 +16,12 @@ div.main_content div.form_row {
 div.main_content div.post_div {
   margin: 4px;
   border: 1px black solid;
-  background-color: #eeeeee;
+  background-color: #FAFAD2;
   padding: 4px;
 }
 /* line 18, ../sass/_main.scss */
 div.main_content div.post_div .post_title {
+  font-family: "Times New Roman";
   font-size: 120%;
 }
 /* line 22, ../sass/_main.scss */

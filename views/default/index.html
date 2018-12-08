@@ -31,20 +31,29 @@
         </div>
         <div class="container form_row">
           <div class="label quarter">
+            Transaction Label:
+          </div>
+          <div class="form threequarters">
+            <select name ="Transaction_Type" input-type="number" v-model="form_category">
+              <option value="Restaurants">Restaurants</option>
+              <option value="Gas">Gas</option>
+              <option value="Groceries">Groceries</option>
+            </select>
+          </div>
+        </div>
+        <div class="container form_row">
+          <div class="label quarter">
             Enter Amount:
           </div>
           <div class="form threequarters">
-            <textarea v-model="form_content" placeholder="Enter Amount of Money"></textarea>
-            <select name ="Transaction_Type" v-model="form_type">
-              <option value="Debit">Debit</option>
-              <option value="Credit">Credit</option>
-            </select>
+            <textarea v-model="form_amount" placeholder="Enter Amount of Money"></textarea>
           </div>
         </div>
         <div class="container form_row"><div class="quarter"></div>
           <div class="threequarters">
             <div class="submit">
-              <button id="add-post" v-on:click="add_post">Submit</button>
+              <button id="debit_btn" v-on:click="add_nums()">Debit</button>
+              <button id="credit_btn" v-on:click="sub_nums()">Credit</button>
             </div>
           </div>
         </div>
@@ -54,11 +63,23 @@
       <div v-if="post_list.length === 0">There are no posts.</div>
 
       <!-- We display the posts. -->
+
+
+      <div class = "Transaction List">
+        Transaction List:
+      </div>
+      <div v-if="list_show"> </div>
       <div id="post_list">
+          <table class = "center fill">
+            <thead>
+              <tr> <td>Transaction Name </td> <td>Transaction Amount </td> </tr>
+            </thead>
+          </table>
+
         <div class="post_div" v-for="post in post_list">
           <div class="post_title">${post.post_title}</div>
-          <div class="post_content">${post.post_content}</div>
-          <div class="post_content">${post.post_type}</div>
+          <div class="post_content">${post.post_category}</div>
+          <div class="post_content">${post.post_total}</div>
           <div class="attributes">
             
             <!-- Code for likes. -->
@@ -78,7 +99,7 @@
               </span>
             </div>
 
-            <!-- Code for start ratings. -->
+            <!-- Code for start ratings.
             <div v-if="is_logged_in" class="star_rating">
               <span v-on:mouseout="stars_out(post._idx)">
                 <span v-on:mouseover="stars_over(post._idx, idx)"
@@ -88,7 +109,7 @@
                     <i v-if="idx > post._num_stars_display" class="fa fa-star-o"></i>
                 </span>
               </span>
-            </div>
+            </div> -->
 
           </div>
         </div>

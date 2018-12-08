@@ -15,33 +15,49 @@ var app = function() {
     // Enumerates an array.
     var enumerate = function(v) { var k=0; return v.map(function(e) {e._idx = k++;});};
 
+    self.add_nums = function() {
+        console.log(self.vue.post_total);
+        var num1 = parseInt(self.vue.post_total);
+        var num2 = parseInt(self.vue.form_amount);
+        self.vue.post_total = num1 + num2;
+        console.log(self.vue.post_total);
+        self.add_post();
+    }
+
+    self.sub_nums = function() {
+        var num1 = parseInt(self.vue.post_total);
+        var num2 = parseInt(self.vue.form_amount);
+        var display;
+        self.vue.post_total  = num1 - num2;
+        console.log(self.vue.post_total);
+        self.add_post();
+    }
+
     self.add_post = function () {
         // We disable the button, to prevent double submission.
         $.web2py.disableElement($("#add-post"));
         var sent_title = self.vue.form_title; // Makes a copy 
-        var sent_content = self.vue.form_content; //
-        var sent_type = self.vue.form_type;
+        var sent_category = self.vue.form_category; //
+        var sent_amount = self.vue.post_total;
+
         $.post(add_post_url,
             // Data we are sending.
             {
                 post_title: self.vue.form_title,
-                post_content: self.vue.form_content,
-                post_type: self.vue.form_type
+                post_category: self.vue.form_category,
+                post_total: self.vue.post_total
             },
             // What do we do when the post succeeds?
             function (data) {
-                // Re-enable the button.
-                $.web2py.enableElement($("#add-post"));
                 // Clears the form.
                 self.vue.form_title = "";
-                self.vue.form_content = "";
-                self.vue.form_type = "";
+                self.vue.form_amount = "";
                 // Adds the post to the list of posts. 
                 var new_post = {
                     id: data.post_id,
                     post_title: sent_title,
-                    post_content: sent_content,
-                    post_type: sent_type,
+                    post_category: sent_category,
+                    post_total: sent_amount,
                 };
                 self.vue.post_list.unshift(new_post);
                 // We re-enumerate the array.
@@ -58,6 +74,11 @@ var app = function() {
                 self.vue.post_list = data.post_list;
                 // Post-processing.
                 self.process_posts();
+                if(self.vue.post_list.length > 0){
+                    self.vue.post_total = self.vue.post_list[0].post_total;
+                    //console.log(self.vue.post_total);
+                }
+                console.log(self.vue.post_list.length);
                 console.log("I got my list");
             }
         );
@@ -84,6 +105,7 @@ var app = function() {
             Vue.set(e, '_show_likers', false);
             // Number of stars to display.
             Vue.set(e, '_num_stars_display', e.rating);
+            Vue.set(e, '_debit', false);
         });
     };
 
@@ -161,7 +183,10 @@ var app = function() {
         data: {
             form_title: "",
             form_content: "",
-            form_type: "",
+            form_category: "",
+            form_amount: 0,
+            post_total: 0,
+            list_show: true,
             post_list: [],
             star_indices: [1, 2, 3, 4, 5]
         },
@@ -177,7 +202,10 @@ var app = function() {
             // Star ratings.
             stars_out: self.stars_out,
             stars_over: self.stars_over,
-            set_stars: self.set_stars
+            set_stars: self.set_stars,
+            //numbs
+            add_nums: self.add_nums,
+            sub_nums: self.sub_nums
         }
 
     });
@@ -189,7 +217,6 @@ var app = function() {
 
     // Gets the posts.
     self.get_posts();
-
     return self;
 };
 
