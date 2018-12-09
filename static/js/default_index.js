@@ -183,10 +183,9 @@ var app = function() {
         unsafeDelimiters: ['!{', '}'],
         data: {
             form_title: "",
-            form_content: "",
-            form_category: "",
-            form_amount: 0,
-            post_total: 0,
+            form_category: "",  //type of transaction
+            form_amount: 0,     //Amount user entered
+            post_total: 0,      //Variable to keep track of total budget
             list_show: true,
             post_list: [],
             star_indices: [1, 2, 3, 4, 5],
