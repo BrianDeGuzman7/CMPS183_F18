@@ -3,11 +3,11 @@
 
 @auth.requires_signature()
 def add_post():
-
     post_id = db.post.insert(
         post_title=request.vars.post_title,
         post_total=request.vars.post_total,
         post_category=request.vars.post_category,
+        post_expense=request.vars.post_expense,
     )
     # We return the id of the new post, so we can insert it along all the others.
     return response.json(dict(post_id=post_id))

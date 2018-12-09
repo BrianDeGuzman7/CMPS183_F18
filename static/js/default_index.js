@@ -105,14 +105,7 @@ var app = function() {
             // Did I like it? 
             // If I do e._smile = e.like, then Vue won't see the changes to e._smile . 
             Vue.set(e, '_smile', e.like); 
-            // Who liked it?
-            Vue.set(e, '_likers', []);
-            // Do I know who liked it? (This could also be a timestamp to limit refresh)
-            Vue.set(e, '_likers_known', false);
-            // Do I show who liked? 
-            Vue.set(e, '_show_likers', false);
-            // Number of stars to display.
-            Vue.set(e, '_num_stars_display', e.rating);
+
             Vue.set(e, '_debit', false);
         });
     };
@@ -196,7 +189,8 @@ var app = function() {
             post_total: 0,
             list_show: true,
             post_list: [],
-            star_indices: [1, 2, 3, 4, 5]
+            star_indices: [1, 2, 3, 4, 5],
+            expense_list: []
         },
         methods: {
             add_post: self.add_post,

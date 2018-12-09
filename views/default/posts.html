@@ -18,6 +18,10 @@
 
 <div class="main_content">
 
+    <div class = "box_text">
+      <h2> Budget Tracker </h2>
+    </div>
+
     <div id="vue-div" class="display:none">
       <!-- Your code goes here.  Remember to call $("#vue-div").show() once you get the data for the first time. -->
 
@@ -33,7 +37,7 @@
         </div>
         <div class="container form_row">
           <div class="label quarter">
-            Transaction Label:
+            Transaction Type:
           </div>
           <div class="form threequarters">
             <select name ="Transaction_Type" input-type="number" v-model="form_category">
@@ -70,6 +74,8 @@
       <div class = "Transaction List">
         Transaction List:
       </div>
+
+
       <div v-if="list_show"> </div>
       <div class="container form_row">
       <div class="label half">
@@ -79,6 +85,9 @@
               <tr> <td>Transaction Name </td> <td>Transaction Amount </td> </tr>
             </thead>
           </table>
+      
+      <div class = "Months">
+      </div>
 
         <div class="post_div" v-for="post in post_list">
           <div class="post_title">${post.post_title}</div>
@@ -115,8 +124,8 @@
                 </span>
               </span>
             </div> -->
-
           </div>
+
         </div>
       </div>
     </div>
