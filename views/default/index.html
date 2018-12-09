@@ -126,9 +126,10 @@
               <tr> <td>Cost Breakdown </td> </tr>
             </thead>
           </table>
-
-      
-      <div id="myDiv"><!-- Plotly chart will be drawn inside this DIV --></div>
+          <center>Money</center>
+      <div id="myMoney"><!-- Plotly chart will be drawn inside this DIV --></div>
+      <center>Expense Breakdown</center>
+      <div id="myCost"><!-- Plotly chart will be drawn inside this DIV --></div>
 
   </div>
     </div>  
@@ -147,6 +148,25 @@
   type: 'pie'
 }];
 
-Plotly.newPlot('myDiv', data);
+Plotly.newPlot('myCost', data);
+  </script>
+
+  <script>
+
+
+var trace2 = {
+  x: [0,1, 2, 3, 4],
+  y: [0, 10000, 9900, 8000, 9400],
+  mode: 'lines'
+};
+
+
+
+var data = [ trace2 ];
+
+var layout = {
+  title:'Line and Scatter Plot'
+};
+Plotly.newPlot('myMoney', data);
   </script>
 </body>
