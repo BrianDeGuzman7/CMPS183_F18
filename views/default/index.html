@@ -3,6 +3,7 @@
 <script src="{{=URL('static', 'js/vue.js')}}"></script>
 <script>
     var is_logged_in = {{='false' if auth.user is None else 'true'}};
+    var get_post_list_url = "{{=URL('api', 'get_post_list')}}";
 </script>
 {{end}}
 

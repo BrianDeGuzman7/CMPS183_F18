@@ -25,6 +25,7 @@ def get_post_list():
                 post_total=row.post_total,
                 post_author=row.post_author,
                 post_category=row.post_category,
+                post_expense = row.post_expense,
                 like = False, # Anyway not used as the user is not logged in. 
                 rating = None, # As above
             ))
@@ -43,6 +44,7 @@ def get_post_list():
                 post_total=row.post.post_total,
                 post_author=row.post.post_author,
                 post_category=row.post.post_category,
+                post_expense=row.post.post_expense,
                 like = False if row.user_like.id is None else True,
                 rating = None if row.user_star.id is None else row.user_star.rating,
             ))

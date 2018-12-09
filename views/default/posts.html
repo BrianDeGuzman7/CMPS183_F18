@@ -48,7 +48,7 @@
             Enter Amount:
           </div>
           <div class="form threequarters">
-            <textarea v-model="form_amount" placeholder="Enter Amount of Money"></textarea>
+            <input type= "number" v-model="form_amount" required> </input>
           </div>
         </div>
         <div class="container form_row"><div class="quarter"></div>
@@ -84,6 +84,7 @@
           <div class="post_title">${post.post_title}</div>
           <div class="post_content">${post.post_category}</div>
           <div class="post_content">${post.post_total}</div>
+          <div class="post_expense">${post.post_expense}</div>
           <div class="attributes">
 
             <!-- Code for likes. -->

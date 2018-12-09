@@ -19,6 +19,9 @@ var app = function() {
         console.log(self.vue.post_total);
         var num1 = parseInt(self.vue.post_total);
         var num2 = parseInt(self.vue.form_amount);
+        if (isNaN(num2)){
+            return false;
+        }
         self.vue.post_total = num1 + num2;
         console.log(self.vue.post_total);
         self.add_post();
@@ -27,7 +30,9 @@ var app = function() {
     self.sub_nums = function() {
         var num1 = parseInt(self.vue.post_total);
         var num2 = parseInt(self.vue.form_amount);
-        var display;
+        if (isNaN(num2)){
+            return false;
+        }
         self.vue.post_total  = num1 - num2;
         console.log(self.vue.post_total);
         self.add_post();
@@ -39,13 +44,15 @@ var app = function() {
         var sent_title = self.vue.form_title; // Makes a copy 
         var sent_category = self.vue.form_category; //
         var sent_amount = self.vue.post_total;
+        var sent_expense = self.vue.form_amount;
 
         $.post(add_post_url,
             // Data we are sending.
             {
                 post_title: self.vue.form_title,
                 post_category: self.vue.form_category,
-                post_total: self.vue.post_total
+                post_total: self.vue.post_total,
+                post_expense: self.vue.form_amount
             },
             // What do we do when the post succeeds?
             function (data) {
@@ -58,6 +65,7 @@ var app = function() {
                     post_title: sent_title,
                     post_category: sent_category,
                     post_total: sent_amount,
+                    post_expense: sent_expense,
                 };
                 self.vue.post_list.unshift(new_post);
                 // We re-enumerate the array.
