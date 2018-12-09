@@ -32,3 +32,45 @@ div.main_content i.changed {
 div.main_content span.likers_list {
   color: #7777cc;
 }
+
+div.main_content1 {
+    background-color: #000000;
+    min-height: 70vh;
+    position: relative;
+}
+
+div.main_content1 div.box{
+  position: absolute;
+  background-color: #FFFFFF;
+  border: 8px solid;
+  border-color: #8c91ab;
+  border-radius: 8px;
+  min-height: 45vh;
+  min-width: 70vh;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+div.main_content1 div.box div.box_text{
+  color: #708090;
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+  position: absolute;
+  text-align: center;
+  top: 10%;
+  left: 50%;
+  min-width: 70vh;
+  transform: translate(-50%, -50%);
+}
+
+.login_btn{
+  position: absolute;
+  color: #FFFFFF;
+  background: #000000;
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

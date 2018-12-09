@@ -210,10 +210,28 @@ var app = function() {
 
     });
 
+   /* self.vue = new Vue({
+        el: "#vue-login",
+        delimiters: ['${', '}'],
+        unsafeDelimiters: ['!{', '}'],
+        data: {
+        },
+        methods: {
+        }
+
+    });*/
+
     // If we are logged in, shows the form to add posts.
     if (is_logged_in) {
+        $("#Login").show();
         $("#add_post").show();
     }
+
+    //if (!is_logged_in) {
+    //    window.location.href = "http://127.0.0.1:8000/CMPS183_F18/default/login";
+    //    console.log("in here");
+    //    self.get_posts();
+    //}
 
     // Gets the posts.
     self.get_posts();

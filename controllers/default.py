@@ -32,6 +32,8 @@ def user():
     """
     return dict(form=auth())
 
+def login():
+    return dict()
 
 @cache.action()
 def download():
