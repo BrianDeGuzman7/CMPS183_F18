@@ -12,6 +12,9 @@
     var set_stars_url = "{{=URL('api', 'set_stars', user_signature=True)}}";
     var is_logged_in = {{='false' if auth.user is None else 'true'}};
 </script>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <!-- Numeric JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/numeric/1.2.6/numeric.min.js"></script>
 {{end}}
 
 <div class="main_content">
@@ -69,6 +72,8 @@
         Transaction List:
       </div>
       <div v-if="list_show"> </div>
+      <div class="container form_row">
+      <div class="label half">
       <div id="post_list">
           <table class = "center fill">
             <thead>
@@ -114,9 +119,28 @@
           </div>
         </div>
       </div>
-
     </div>
+    <div class="label half">
+      Cost Breakdown
+      <div id="myDiv"><!-- Plotly chart will be drawn inside this DIV --></div>
+
+  </div>
+    </div>  
+
+  </div>
+
 
 </div>
 
 <script src="{{=URL('static', 'js/default_index.js')}}"></script>
+<script>
+    <!-- JAVASCRIPT CODE GOES HERE -->
+      var data = [{
+  values: [19, 26, 55],
+  labels: ['Restaurants', 'Gas', 'Groceries'],
+  type: 'pie'
+}];
+
+Plotly.newPlot('myDiv', data);
+  </script>
+</body>
