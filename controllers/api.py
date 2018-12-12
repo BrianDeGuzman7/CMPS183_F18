@@ -14,6 +14,10 @@ def add_post():
     return response.json(dict(post_id=post_id))
 
 
+def delete_db():
+    db.post.ALL
+    return "ok"
+
 def get_post_list():
     results = []
     if auth.user is None:

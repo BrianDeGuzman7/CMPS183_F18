@@ -39,10 +39,13 @@
             Transaction Label:
           </div>
           <div class="form threequarters">
-            <select name ="Transaction_Type" input-type="number" v-model="form_category">
-              <option value="Restaurants">Restaurants</option>
+            <select name ="Transaction_Type" v-model="form_category">
+
+              <option value="Rent">Rent</option>
               <option value="Gas">Gas</option>
-              <option value="Groceries">Groceries</option>
+              <option value="Food">Food</option>
+              <option value="Bills">Bills</option>
+              <option value="Etc">Etc</option>
             </select>
           </div>
         </div>
@@ -51,13 +54,13 @@
             Enter Amount:
           </div>
           <div class="form threequarters">
-            <textarea v-model="form_amount" placeholder="Enter Amount of Money" id="userInputT"></textarea>
+            <textarea type = "number" v-model="form_amount" placeholder="Enter Amount of Money"></textarea>
           </div>
         </div>
         <div class="container form_row"><div class="quarter"></div>
           <div class="threequarters">
             <div class="submit">
-              <a v-on:click="sub_nums()" href="{{=URL('default', 'posts')}}"  class="btn" >Add Expense</a>
+              <a v-on:click="sub_nums()" class="btn" >Add Expense</a>
               <a href="{{=URL('default', 'posts')}}"  class="btn" class="minus-circle"> Back </a>
               <!--<button id="debit_btn" v-on:click="add_nums()" onclick="totalMoney()" on:click: href="{{=URL('default', 'posts')}}">Debit</button>
               <button id="credit_btn" v-on:click="sub_nums()" onclick="totalMoney()" on:click: href="{{=URL('default', 'posts')}}">Credit</button> -->

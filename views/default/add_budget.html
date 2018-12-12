@@ -28,10 +28,10 @@
       <div id="add_post" style="display:none">
         <div class="container form_row">
           <div class="label quarter">
-            Transaction Name:
+            Budget Name:
           </div>
           <div class="form threequarters">
-            <input v-model="form_title" placeholder="Enter Transaction Title"/>
+            <input v-model="form_title" placeholder="Set Budget Title"/>
           </div>
         </div>
         <div class="container form_row">
@@ -39,14 +39,13 @@
             Enter Amount:
           </div>
           <div class="form threequarters">
-            <textarea v-model="budget" placeholder="Enter Amount of Money" id="userInputT"></textarea>
+            <textarea type = "number" v-model="budget" placeholder="Enter Amount of Money" id="userInputT"></textarea>
           </div>
         </div>
         <div class="container form_row"><div class="quarter"></div>
           <div class="threequarters">
             <div class="submit">
-              <a v-on:click="set_budget()" href="{{=URL('default', 'posts')}}"  class="btn" >Set Budget</a>
-
+              <a v-on:click="set_budget()" class="btn" >Set Budget</a>
               <a href="{{=URL('default', 'posts')}}"  class="btn" class="minus-circle"> Back </a>
               <!--<button id="debit_btn" v-on:click="add_nums()" onclick="totalMoney()" on:click: href="{{=URL('default', 'posts')}}">Debit</button>
               <button id="credit_btn" v-on:click="sub_nums()" onclick="totalMoney()" on:click: href="{{=URL('default', 'posts')}}">Credit</button> -->

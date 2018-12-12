@@ -17,17 +17,22 @@ var app = function() {
 
     self.set_budget = function() {
         console.log(self.vue.budget);
+        console.log(self.vue.form_title);
         var num2 = parseInt(self.vue.budget);
         var num1 = parseInt(self.vue.post_total);
         if (isNaN(num2)){
             return false;
         }
+        if (self.vue.form_title == ""){
+            alert("Enter Budget Title");
+            return false;
+        }
         self.vue.budget = num2;
         self.vue.post_total = num2;
-
         self.add_post();
+        alert("Budget Added. Press Back to Return to Budget Page");
 
-    }
+    };
 
     self.add_nums = function() {
         console.log(self.vue.post_total);
@@ -38,12 +43,13 @@ var app = function() {
         }
         self.vue.budget = self.vue.budget + num2;
         self.add_post();
-    }
+
+    };
 
     self.clear_budget = function() {
-
-
-    }
+        $.getJSON(delete_list_url,
+        );
+    };
 
     self.sub_nums = function() {
         var num1 = parseInt(self.vue.post_total);
@@ -51,10 +57,15 @@ var app = function() {
         if (isNaN(num2)){
             return false;
         }
+        if (self.vue.form_title == "" || self.vue.form_category==""){
+            alert("Fill Missing Fields");
+            return false;
+        }
         self.vue.post_total  = num1 - num2;
         console.log(self.vue.post_total);
         self.add_post();
-    }
+        alert("Transaction Added. Press Back to Return to Budget Page");
+    };
 
     self.add_post = function () {
         // We disable the button, to prevent double submission.
@@ -131,72 +142,6 @@ var app = function() {
         });
     };
 
-    // Code for getting and displaying the list of likers. 
-    self.show_likers = function(post_idx) {
-        var p = self.vue.post_list[post_idx];
-        p._show_likers = true;
-        if (!p._likers_known) {
-            $.getJSON(get_likers_url, {post_id: p.id}, function (data) {
-                p._likers = data.likers
-                p._likers_known = true;
-            })
-        }
-    };
-
-    self.hide_likers = function(post_idx) {
-        var p = self.vue.post_list[post_idx];
-        p._show_likers = false;
-    };
-
-    // Smile change code. 
-    self.like_mouseover = function (post_idx) {
-        // When we mouse over something, the face has to assume the opposite
-        // of the current state, to indicate the effect.
-        var p = self.vue.post_list[post_idx];
-        p._smile = !p.like;
-    };
-
-    self.like_click = function (post_idx) {
-        // The like status is toggled; the UI is not changed.
-        var p = self.vue.post_list[post_idx];
-        p.like = !p.like;
-        // We need to post back the change to the server.
-        $.post(set_like_url, {
-            post_id: p.id,
-            like: p.like
-        }); // Nothing to do upon completion.
-    };
-
-    self.like_mouseout = function (post_idx) {
-        // The like and smile status coincide again.
-        var p = self.vue.post_list[post_idx];
-        p._smile = p.like;
-    };
-
-    // Code for star ratings.
-    self.stars_out = function (post_idx) {
-        // Out of the star rating; set number of visible back to rating.
-        var p = self.vue.post_list[post_idx];
-        p._num_stars_display = p.rating;
-    };
-
-    self.stars_over = function(post_idx, star_idx) {
-        // Hovering over a star; we show that as the number of active stars.
-        var p = self.vue.post_list[post_idx];
-        p._num_stars_display = star_idx;
-    };
-
-    self.set_stars = function(post_idx, star_idx) {
-        // The user has set this as the number of stars for the post.
-        var p = self.vue.post_list[post_idx];
-        p.rating = star_idx;
-        // Sends the rating to the server.
-        $.post(set_stars_url, {
-            post_id: p.id,
-            rating: star_idx
-        });
-    };
-
     // Complete as needed.
     self.vue = new Vue({
         el: "#vue-div",
@@ -210,17 +155,17 @@ var app = function() {
             budget: 0,
             list_show: false,
             post_list: [],
-            star_indices: [1, 2, 3, 4, 5],
             expense_list: [],
             is_logged_in: false,
         },
         methods: {
             add_post: self.add_post,
 
-            //numbs
+            //Methods used for adding/subtracting budgets
             add_nums: self.add_nums,
             sub_nums: self.sub_nums,
-            set_budget: self.set_budget
+            set_budget: self.set_budget,
+            clear_budget: self.clear_budget
         }
 
     });

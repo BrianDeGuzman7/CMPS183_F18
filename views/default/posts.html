@@ -4,6 +4,8 @@
 <script>
     var add_post_url = "{{=URL('api', 'add_post', user_signature=True)}}";
     var get_post_list_url = "{{=URL('api', 'get_post_list')}}";
+
+    var delete_list_url = "{{=URL('api', 'delete_db')}}";
     // Like callbacks.
     var set_like_url = "{{=URL('api', 'set_like', user_signature=True)}}";
     var get_likers_url = "{{=URL('api', 'get_likers')}}"
@@ -29,16 +31,14 @@
       <!-- First, let's add a form to insert blog posts. -->
     <div class = "box_text">
       <div v-if="post_list.length > 0"><h1>Remaining Budget: $${post_total}</h1></div>
+      <div v-if="post_list.length === 0"><h1>Budget not set</h1></div>
     </div>
 
     <a href="{{=URL('default', 'add_transaction')}}" class="btn"> Add Transaction</a>
     <a href="{{=URL('default', 'add_budget')}}" class="btn"> Add Budget</a>
-    <button class ="clear"> Clear </button>
+    <button class ="clear" v-on:click="clear_budget()" > Clear </button>
 
-    <!-- Message in case there are no posts. -->
-    <div v-if="post_list.length === 0">There are no Transactions.</div>
-
-    <!-- We display the posts. -->
+    <!-- We display the transactions. -->
     <div class="container form_row">
         <div class="label half">
             <div class = "transaction_list">
@@ -148,6 +148,8 @@ var trace2 = {
   y: [input_res[0],input_res[1],input_res[2],input_res[3],input_res[4],input_res[5],input_res[6],input_res[7],input_res[8],input_res[9],input_res[10],input_res[11],input_res[12],input_res[13]],
   mode: 'lines',
 };
+
+
 var data = [ trace2 ];
 var layout = {
   title:'Line and Scatter Plot'
@@ -155,7 +157,7 @@ var layout = {
 Plotly.newPlot('myMoney', data);
       }
             function totalMoney() {
-    var input = document.getElementById("userInputT").value;
+    var input = $( "#userInputT" ).load( "default/add_transaction.html" );
     input_res[i] = Number(input) + Number(input_res[i - 1]);
     i++;
 var trace2 = {
@@ -163,6 +165,8 @@ var trace2 = {
   y: [input_res[0],input_res[1],input_res[2],input_res[3],input_res[4],input_res[5],input_res[6],input_res[7],input_res[8],input_res[9],input_res[10],input_res[11],input_res[12],input_res[13]],
   mode: 'lines',
 };
+
+
 var data = [ trace2 ];
 var layout = {
   title:'Line and Scatter Plot'
