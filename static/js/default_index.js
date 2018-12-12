@@ -32,13 +32,17 @@ var app = function() {
     self.add_nums = function() {
         console.log(self.vue.post_total);
         var num1 = parseInt(self.vue.post_total);
-        var num2 = parseInt(self.vue.form_amount);
+        var num2 = parseInt(self.vue.budget);
         if (isNaN(num2)){
             return false;
         }
-        self.vue.post_total = num1 + num2;
-        console.log(self.vue.post_total);
+        self.vue.budget = self.vue.budget + num2;
         self.add_post();
+    }
+
+    self.clear_budget = function() {
+
+
     }
 
     self.sub_nums = function() {
@@ -204,7 +208,7 @@ var app = function() {
             form_amount: 0,     //Amount user entered
             post_total: 0,      //Variable to keep track of total budget
             budget: 0,
-            list_show: true,
+            list_show: false,
             post_list: [],
             star_indices: [1, 2, 3, 4, 5],
             expense_list: [],
@@ -212,17 +216,7 @@ var app = function() {
         },
         methods: {
             add_post: self.add_post,
-            // Likers. 
-            like_mouseover: self.like_mouseover,
-            like_mouseout: self.like_mouseout,
-            like_click: self.like_click,
-            // Show/hide who liked.
-            show_likers: self.show_likers,
-            hide_likers: self.hide_likers,
-            // Star ratings.
-            stars_out: self.stars_out,
-            stars_over: self.stars_over,
-            set_stars: self.set_stars,
+
             //numbs
             add_nums: self.add_nums,
             sub_nums: self.sub_nums,

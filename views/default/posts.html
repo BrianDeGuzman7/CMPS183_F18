@@ -68,47 +68,61 @@
 
       <!-- First, let's add a form to insert blog posts. -->
     <div class = "box_text">
-      <div v-if="post_list.length > 0"><h1>Remaining Budget: ${post_total}</h1></div>
+      <div v-if="post_list.length > 0"><h1>Remaining Budget: $${post_total}</h1></div>
     </div>
 
     <a href="{{=URL('default', 'add_transaction')}}" class="btn"> Add Transaction</a>
     <a href="{{=URL('default', 'add_budget')}}" class="btn"> Add Budget</a>
+    <button class ="clear"> Clear </button>
 
-      <!-- Message in case there are no posts. -->
-      <div v-if="post_list.length === 0">There are no posts.</div>
+    <!-- Message in case there are no posts. -->
+    <div v-if="post_list.length === 0">There are no posts.</div>
 
-      <!-- We display the posts. -->
+    <!-- We display the posts. -->
+    <div class="container form_row">
+        <div class="label half">
+            <div class = "transaction_list">
+                <h2> Transactions:
+                  <button class = "show_trans" v-on:click ="list_show=!list_show">Expand/Collapse</button>
+                </h2>
 
-
-      <div class = "Transaction List">
-        Transaction List:
-      </div>
-      <div v-if="list_show"> </div>
-      <div class="container form_row">
-      <div class="label half">
-        <div class="post_div" v-for="post in post_list">
-          <div class="post_content">${post.post_title}</div>
-          <div class="post_content">Category: ${post.post_category}</div>
-          <div class="post_content">Total Remaining: ${post.post_total}</div>
-          <!--<div class="post_content">Total Budget: ${post.post_budget}</div>-->
-          <div class="attributes">
-
-            <!-- Code for likes. -->
-            <div class="likers">
-              <span class="show_likers">
-                <span v-if="is_logged_in" class="toggle_like"
-                      v-on:mouseover="like_mouseover(post._idx); show_likers(post._idx)"
-                      v-on:mouseout="hide_likers(post._idx); like_mouseout(post._idx)"
-                      v-on:click="like_click(post._idx)">
-                  <i v-if="post._smile" class="fa fa-smile-o" v-bind:class="{changed: post._smile === !post.like}"></i>
-                  <i v-if="!post._smile" class="fa fa-meh-o" v-bind:class="{changed: post._smile === !post.like}"></i>
-                </span>
-                <span v-if="post._show_likers" class="likers_list">
-                  <span v-for="liker in post._likers" class="liker">${liker}</span>
-                  <span v-if="post._likers.length > 0">liked it.</span>
-                </span>
-              </span>
+                <table>
+                  <tr>
+                    <th>Title</th>
+                    <th>Type</th>
+                    <th>Amount</th>
+                  </tr>
+                </table>
             </div>
+            <div v-if="list_show">
+                <div class="post_div" v-for="post in post_list">
+                    <div class="post_content">
+                      <table>
+                        <tr>
+                          <td>${post.post_title} </td>
+                          <td>${post.post_category}</td>
+                          <td>$${post.post_total}</td>
+                        </tr>
+                      </table>
+                    </div>
+          <!--<div class="post_content">Total Budget: ${post.post_budget}</div>-->
+                    <div class="attributes">
+                        <!-- Code for likes. -->
+                        <div class="likers">
+                          <span class="show_likers">
+                            <span v-if="is_logged_in" class="toggle_like"
+                                  v-on:mouseover="like_mouseover(post._idx); show_likers(post._idx)"
+                                  v-on:mouseout="hide_likers(post._idx); like_mouseout(post._idx)"
+                                  v-on:click="like_click(post._idx)">
+                              <i v-if="post._smile" class="fa fa-smile-o" v-bind:class="{changed: post._smile === !post.like}"></i>
+                              <i v-if="!post._smile" class="fa fa-meh-o" v-bind:class="{changed: post._smile === !post.like}"></i>
+                            </span>
+                            <span v-if="post._show_likers" class="likers_list">
+                              <span v-for="liker in post._likers" class="liker">${liker}</span>
+                              <span v-if="post._likers.length > 0">liked it.</span>
+                            </span>
+                          </span>
+                        </div>
 
             <!-- Code for start ratings.
             <div v-if="is_logged_in" class="star_rating">
@@ -122,10 +136,10 @@
               </span>
             </div> -->
 
-          </div>
+                    </div>
+                </div>
+            </div>
         </div>
-
-    </div>
 
 
   <div class="label half">
@@ -171,6 +185,16 @@
       color: white;
     }
 
+    .transaction_list {
+      font-family: "Raleway", sans-serif;
+      color: black;
+    }
+
+    .show_trans{
+      color: white;
+      background-color: #000000;
+      align: right;
+    }
 
 </style>
 

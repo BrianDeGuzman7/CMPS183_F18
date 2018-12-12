@@ -28,8 +28,6 @@ def get_post_list():
                 post_category=row.post_category,
                 post_expense = row.post_expense,
                 post_budget = row.post_budget,
-                like = False, # Anyway not used as the user is not logged in. 
-                rating = None, # As above
             ))
     else:
         # Logged in.
