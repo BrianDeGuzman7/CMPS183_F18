@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e9985c22-a3d3-41c5-a4ea-0a976e75328b" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/api.py" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/api.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/js/default_index.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/default_index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/default/add_budget.html" beforeDir="false" afterPath="$PROJECT_DIR$/views/default/add_budget.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/default/add_transaction.html" beforeDir="false" afterPath="$PROJECT_DIR$/views/default/add_transaction.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/default/posts.html" beforeDir="false" afterPath="$PROJECT_DIR$/views/default/posts.html" afterDir="false" />
-    </list>
+    <list default="true" id="e9985c22-a3d3-41c5-a4ea-0a976e75328b" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
