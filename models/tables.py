@@ -27,6 +27,7 @@ db.define_table('post',
                 Field('post_title'),
                 Field('post_category'),
                 Field('post_expense'),
+                Field('post_budget'),
                 Field('post_total'),
                 Field('post_time', 'datetime', default=get_current_time()),
                 )

@@ -15,6 +15,20 @@ var app = function() {
     // Enumerates an array.
     var enumerate = function(v) { var k=0; return v.map(function(e) {e._idx = k++;});};
 
+    self.set_budget = function() {
+        console.log(self.vue.budget);
+        var num2 = parseInt(self.vue.budget);
+        var num1 = parseInt(self.vue.post_total);
+        if (isNaN(num2)){
+            return false;
+        }
+        self.vue.budget = num2;
+        self.vue.post_total = num2;
+
+        self.add_post();
+
+    }
+
     self.add_nums = function() {
         console.log(self.vue.post_total);
         var num1 = parseInt(self.vue.post_total);
@@ -45,6 +59,7 @@ var app = function() {
         var sent_category = self.vue.form_category; //
         var sent_amount = self.vue.post_total;
         var sent_expense = self.vue.form_amount;
+        var sent_budget = self.vue.budget;
 
         $.post(add_post_url,
             // Data we are sending.
@@ -52,7 +67,8 @@ var app = function() {
                 post_title: self.vue.form_title,
                 post_category: self.vue.form_category,
                 post_total: self.vue.post_total,
-                post_expense: self.vue.form_amount
+                post_expense: self.vue.form_amount,
+                post_budget: self.vue.budget
             },
             // What do we do when the post succeeds?
             function (data) {
@@ -66,6 +82,7 @@ var app = function() {
                     post_category: sent_category,
                     post_total: sent_amount,
                     post_expense: sent_expense,
+                    post_budget: sent_budget,
                 };
                 self.vue.post_list.unshift(new_post);
                 // We re-enumerate the array.
@@ -186,6 +203,7 @@ var app = function() {
             form_category: "",  //type of transaction
             form_amount: 0,     //Amount user entered
             post_total: 0,      //Variable to keep track of total budget
+            budget: 0,
             list_show: true,
             post_list: [],
             star_indices: [1, 2, 3, 4, 5],
@@ -207,7 +225,8 @@ var app = function() {
             set_stars: self.set_stars,
             //numbs
             add_nums: self.add_nums,
-            sub_nums: self.sub_nums
+            sub_nums: self.sub_nums,
+            set_budget: self.set_budget
         }
 
     });

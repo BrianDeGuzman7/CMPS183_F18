@@ -38,6 +38,9 @@ def posts():
 def add_transaction():
     return dict()
 
+def add_budget():
+    return dict()
+
 @cache.action()
 def download():
     """

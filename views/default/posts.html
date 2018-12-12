@@ -68,10 +68,11 @@
 
       <!-- First, let's add a form to insert blog posts. -->
     <div class = "box_text">
-        <h1> Budget Tracker </h1>
+      <div v-if="post_list.length > 0"><h1>Remaining Budget: ${post_total}</h1></div>
     </div>
 
     <a href="{{=URL('default', 'add_transaction')}}" class="btn"> Add Transaction</a>
+    <a href="{{=URL('default', 'add_budget')}}" class="btn"> Add Budget</a>
 
       <!-- Message in case there are no posts. -->
       <div v-if="post_list.length === 0">There are no posts.</div>
@@ -85,17 +86,11 @@
       <div v-if="list_show"> </div>
       <div class="container form_row">
       <div class="label half">
-      <div id="post_list">
-          <table class = "center fill">
-            <thead>
-              <tr> <td>Transaction Name </td> <td>Transaction Amount </td> </tr>
-            </thead>
-          </table>
-
         <div class="post_div" v-for="post in post_list">
-          <div class="post_title">${post.post_title}</div>
-          <div class="post_content">${post.post_category}</div>
-          <div class="post_content">${post.post_total}</div>
+          <div class="post_content">${post.post_title}</div>
+          <div class="post_content">Category: ${post.post_category}</div>
+          <div class="post_content">Total Remaining: ${post.post_total}</div>
+          <!--<div class="post_content">Total Budget: ${post.post_budget}</div>-->
           <div class="attributes">
 
             <!-- Code for likes. -->
@@ -129,7 +124,7 @@
 
           </div>
         </div>
-      </div>
+
     </div>
 
 
@@ -163,6 +158,22 @@
 
 
 </div>
+
+<style>
+    .post_div {
+      margin: 4px;
+      border: 1px white solid;
+      background-color: #000000;
+      padding: 4px;
+    }
+    .post_content{
+      font-family: "Raleway", sans-serif;
+      color: white;
+    }
+
+
+</style>
+
 <script src="{{=URL('static', 'js/default_index.js')}}"></script>
 <script>
   </script>
@@ -229,3 +240,10 @@ function makePlotly( x, y, standard_deviation ){
   makeplot();
 </script>
 </body>
+
+<style>
+    .body {
+      background-color: #000000;
+
+    }
+</style>

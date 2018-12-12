@@ -8,6 +8,7 @@ def add_post():
         post_total=request.vars.post_total,
         post_category=request.vars.post_category,
         post_expense=request.vars.post_expense,
+        post_budget=request.vars.post_budget,
     )
     # We return the id of the new post, so we can insert it along all the others.
     return response.json(dict(post_id=post_id))
@@ -26,6 +27,7 @@ def get_post_list():
                 post_author=row.post_author,
                 post_category=row.post_category,
                 post_expense = row.post_expense,
+                post_budget = row.post_budget,
                 like = False, # Anyway not used as the user is not logged in. 
                 rating = None, # As above
             ))
@@ -45,6 +47,7 @@ def get_post_list():
                 post_author=row.post.post_author,
                 post_category=row.post.post_category,
                 post_expense=row.post.post_expense,
+                post_budget=row.post.post_budget,
                 like = False if row.user_like.id is None else True,
                 rating = None if row.user_star.id is None else row.user_star.rating,
             ))

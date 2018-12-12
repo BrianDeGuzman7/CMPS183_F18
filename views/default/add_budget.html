@@ -36,28 +36,16 @@
         </div>
         <div class="container form_row">
           <div class="label quarter">
-            Transaction Label:
-          </div>
-          <div class="form threequarters">
-            <select name ="Transaction_Type" input-type="number" v-model="form_category">
-              <option value="Restaurants">Restaurants</option>
-              <option value="Gas">Gas</option>
-              <option value="Groceries">Groceries</option>
-            </select>
-          </div>
-        </div>
-        <div class="container form_row">
-          <div class="label quarter">
             Enter Amount:
           </div>
           <div class="form threequarters">
-            <textarea v-model="form_amount" placeholder="Enter Amount of Money" id="userInputT"></textarea>
+            <textarea v-model="budget" placeholder="Enter Amount of Money" id="userInputT"></textarea>
           </div>
         </div>
         <div class="container form_row"><div class="quarter"></div>
           <div class="threequarters">
             <div class="submit">
-              <a v-on:click="sub_nums()" href="{{=URL('default', 'posts')}}"  class="btn" >Add Expense</a>
+              <a v-on:click="set_budget()" href="{{=URL('default', 'posts')}}"  class="btn" >Set Budget</a>
               <!--<button id="debit_btn" v-on:click="add_nums()" onclick="totalMoney()" on:click: href="{{=URL('default', 'posts')}}">Debit</button>
               <button id="credit_btn" v-on:click="sub_nums()" onclick="totalMoney()" on:click: href="{{=URL('default', 'posts')}}">Credit</button> -->
             </div>
