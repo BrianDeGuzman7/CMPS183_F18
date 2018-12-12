@@ -18,48 +18,8 @@
   <!-- Numeric JS -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/numeric/1.2.6/numeric.min.js"></script>
 {{end}}
-<head>
-    <script type="text/javascript">
-        window.onload = function() {
-            var dps = []; //dataPoints. 
-            var chart = new CanvasJS.Chart("chartContainer", {
-                title: {
-                    text: "Money"
-                },
-                data: [{
-                    type: "line",
-                    dataPoints: dps
-                }]
-            });
-
-            function addDataPointsAndRender() {
-              var i;
-                yValue = Number(document.getElementById("yValue").value);
-                xValue = i+1;
-                dps.push({
-                    x: i,
-                    y:yValue,
-                    i: i+1,
-                });
-                chart.render();
-            }
-            var renderButton = document.getElementById("renderButton");
-            renderButton.addEventListener("click", addDataPointsAndRender);
-        }
-    </script>
-    <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-
-</head>
 
 <body>
-
-    X Value:
-    <input id="xValue" type="number" step="any" placeholder="Enter X-Value"> Y Value:
-    <input id="yValue" type="number" step="any" placeholder="Enter Y-Value">
-    <button id="renderButton">Add DataPoint & Render</button>
-    <div id="chartContainer" style="height: 270px; width: 100%;">
-    </div>
-
 
 <div class="main_content">
 
@@ -76,7 +36,7 @@
     <button class ="clear"> Clear </button>
 
     <!-- Message in case there are no posts. -->
-    <div v-if="post_list.length === 0">There are no posts.</div>
+    <div v-if="post_list.length === 0">There are no Transactions.</div>
 
     <!-- We display the posts. -->
     <div class="container form_row">
@@ -94,6 +54,7 @@
                   </tr>
                 </table>
             </div>
+            <div id="post_list">
             <div v-if="list_show">
                 <div class="post_div" v-for="post in post_list">
                     <div class="post_content">
@@ -107,40 +68,12 @@
                     </div>
           <!--<div class="post_content">Total Budget: ${post.post_budget}</div>-->
                     <div class="attributes">
-                        <!-- Code for likes. -->
-                        <div class="likers">
-                          <span class="show_likers">
-                            <span v-if="is_logged_in" class="toggle_like"
-                                  v-on:mouseover="like_mouseover(post._idx); show_likers(post._idx)"
-                                  v-on:mouseout="hide_likers(post._idx); like_mouseout(post._idx)"
-                                  v-on:click="like_click(post._idx)">
-                              <i v-if="post._smile" class="fa fa-smile-o" v-bind:class="{changed: post._smile === !post.like}"></i>
-                              <i v-if="!post._smile" class="fa fa-meh-o" v-bind:class="{changed: post._smile === !post.like}"></i>
-                            </span>
-                            <span v-if="post._show_likers" class="likers_list">
-                              <span v-for="liker in post._likers" class="liker">${liker}</span>
-                              <span v-if="post._likers.length > 0">liked it.</span>
-                            </span>
-                          </span>
-                        </div>
-
-            <!-- Code for start ratings.
-            <div v-if="is_logged_in" class="star_rating">
-              <span v-on:mouseout="stars_out(post._idx)">
-                <span v-on:mouseover="stars_over(post._idx, idx)"
-                      v-on:click="set_stars(post._idx, idx)"
-                      v-for="idx in star_indices">
-                    <i v-if="idx <= post._num_stars_display" class="fa fa-star"></i>
-                    <i v-if="idx > post._num_stars_display" class="fa fa-star-o"></i>
-                </span>
-              </span>
-            </div> -->
-
                     </div>
                 </div>
             </div>
-        </div>
+            </div>
 
+      </div>
 
   <div class="label half">
       <table class = "center fill">
@@ -203,23 +136,55 @@
   </script>
 
   <script>
+      var input_res = [];
+      var i = 1;
+      input_res[0] = 0;
       function totalMoney() {
-        var input_res = [];
-        var i;
     var input = document.getElementById("userInputT").value;
-input_res[i]=input;
-i++;
+    input_res[i] = Number(input) + Number(input_res[i - 1]);
+    i++;
 var trace2 = {
-  x: [0,1, 2, 3, 4, 5, 6,7,8,9,10,11],
-  y: [input_res[i],input_res[1]],
-  mode: 'lines'
+  x: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12,13,14,15,16,17],
+  y: [input_res[0],input_res[1],input_res[2],input_res[3],input_res[4],input_res[5],input_res[6],input_res[7],input_res[8],input_res[9],input_res[10],input_res[11],input_res[12],input_res[13]],
+  mode: 'lines',
 };
 var data = [ trace2 ];
 var layout = {
   title:'Line and Scatter Plot'
 };
 Plotly.newPlot('myMoney', data);
-      }</script>
+      }
+            function totalMoney() {
+    var input = document.getElementById("userInputT").value;
+    input_res[i] = Number(input) + Number(input_res[i - 1]);
+    i++;
+var trace2 = {
+  x: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12,13,14,15,16,17],
+  y: [input_res[0],input_res[1],input_res[2],input_res[3],input_res[4],input_res[5],input_res[6],input_res[7],input_res[8],input_res[9],input_res[10],input_res[11],input_res[12],input_res[13]],
+  mode: 'lines',
+};
+var data = [ trace2 ];
+var layout = {
+  title:'Line and Scatter Plot'
+};
+Plotly.newPlot('myMoney', data);
+      }
+            function totalMoneySub() {
+    var input = document.getElementById("userInputT").value;
+    input_res[i] =  Number(input_res[i - 1]) - Number(input);
+    i++;
+var trace2 = {
+  x: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12,13,14,15,16,17],
+  y: [input_res[0],input_res[1],input_res[2],input_res[3],input_res[4],input_res[5],input_res[6],input_res[7],input_res[8],input_res[9],input_res[10],input_res[11],input_res[12],input_res[13]],
+  mode: 'lines',
+};
+var data = [ trace2 ];
+var layout = {
+  title:'Line and Scatter Plot'
+};
+Plotly.newPlot('myMoney', data);
+      }
+      </script>
 
   <script>
       function othername() {
@@ -234,40 +199,13 @@ Plotly.newPlot('myMoney', data);
   labels: ['Rent', 'Gas', 'Groceries/Food','Bills','etc'],
   type: 'pie'
 }];
-Plotly.newPlot('myCost', data);
+var layout = {
+  title:'Expense Breakdown'
+};
+Plotly.newPlot('myCost', data, layout);
 }</script>
 
 <script>
-function makeplot() {
-  Plotly.d3.csv("https://raw.githubusercontent.com/plotly/datasets/master/2014_apple_stock.csv", function(data){ processData(data) } );
-};
-function processData(allRows) {
-  console.log(allRows);
-  var x = [], y = [], standard_deviation = [];
-  for (var i=0; i<allRows.length; i++) {
-    row = allRows[i];
-    x.push( row['AAPL_x'] );
-    y.push( row['AAPL_y'] );
-  }
-  console.log( 'X',x, 'Y',y, 'SD',standard_deviation );
-  makePlotly( x, y, standard_deviation );
-}
-function makePlotly( x, y, standard_deviation ){
-  var plotDiv = document.getElementById("plot");
-  var traces = [{
-    x: x,
-    y: y
-  }];
-  Plotly.newPlot('myDiv', traces,
-    {title: 'Plotting CSV data from AJAX call'});
-};
-  makeplot();
 </script>
+
 </body>
-
-<style>
-    .body {
-      background-color: #000000;
-
-    }
-</style>

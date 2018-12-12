@@ -13,6 +13,9 @@ def index():
     # We just want to expand the template.
     return dict()
 
+def charts():
+    # We just want to expand the template.
+    return dict()
 
 def user():
     """

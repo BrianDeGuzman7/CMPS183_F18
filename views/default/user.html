@@ -1,10 +1,11 @@
 {{extend 'layout2.html'}}
-
+<body bgcolor="#E6E6FA">
 <h2>
+	
 {{=T('Sign Up') if request.args(0) == 'register' else T('Log In') if request.args(0) == 'login' else T(request.args(0).replace('_',' ').title())}}
 </h2>
 
-<div class="container">
+<div class="container" bgcolor="#E6E6FA">
     <div class="row">
         <div id="web2py_user_form" class="col-lg-6">
         {{
@@ -22,7 +23,7 @@
     </div>
 </div>
 
-
+</body>
 {{block page_js}}
 <script>
     jQuery("#web2py_user_form input:visible:enabled:first").focus();
