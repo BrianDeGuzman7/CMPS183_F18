@@ -12,15 +12,51 @@
     var is_logged_in = {{='false' if auth.user is None else 'true'}};
 </script>
 <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script src="plotly-latest.min.js"></script>
   <!-- Numeric JS -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/numeric/1.2.6/numeric.min.js"></script>
 {{end}}
+<head>
+    <script type="text/javascript">
+        window.onload = function() {
+            var dps = []; //dataPoints. 
+            var chart = new CanvasJS.Chart("chartContainer", {
+                title: {
+                    text: "Money"
+                },
+                data: [{
+                    type: "line",
+                    dataPoints: dps
+                }]
+            });
 
-<div class="main_content">
+            function addDataPointsAndRender() {
+              var i;
+                yValue = Number(document.getElementById("yValue").value);
+                xValue = i+1;
+                dps.push({
+                    x: i,
+                    y:yValue,
+                    i: i+1,
+                });
+                chart.render();
+            }
+            var renderButton = document.getElementById("renderButton");
+            renderButton.addEventListener("click", addDataPointsAndRender);
+        }
+    </script>
+    <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 
-    <div class = "box_text">
-      <h2> Budget Tracker </h2>
+</head>
+
+<body>
+    X Value:
+    <input id="xValue" type="number" step="any" placeholder="Enter X-Value"> Y Value:
+    <input id="yValue" type="number" step="any" placeholder="Enter Y-Value">
+    <button id="renderButton">Add DataPoint & Render</button>
+    <div id="chartContainer" style="height: 270px; width: 100%;">
     </div>
+<div class="main_content">
 
     <div id="vue-div" class="display:none">
       <!-- Your code goes here.  Remember to call $("#vue-div").show() once you get the data for the first time. -->
@@ -37,7 +73,7 @@
         </div>
         <div class="container form_row">
           <div class="label quarter">
-            Transaction Type:
+            Transaction Label:
           </div>
           <div class="form threequarters">
             <select name ="Transaction_Type" input-type="number" v-model="form_category">
@@ -52,14 +88,14 @@
             Enter Amount:
           </div>
           <div class="form threequarters">
-            <input type= "number" v-model="form_amount" required> </input>
+            <textarea v-model="form_amount" placeholder="Enter Amount of Money" id="userInputT"></textarea>
           </div>
         </div>
         <div class="container form_row"><div class="quarter"></div>
           <div class="threequarters">
             <div class="submit">
-              <button id="debit_btn" v-on:click="add_nums()">Debit</button>
-              <button id="credit_btn" v-on:click="sub_nums()">Credit</button>
+              <button id="debit_btn" v-on:click="add_nums()" onclick="totalMoney();">Debit</button>
+              <button id="credit_btn" v-on:click="sub_nums()"onclick="totalMoney();">Credit</button>
             </div>
           </div>
         </div>
@@ -74,8 +110,6 @@
       <div class = "Transaction List">
         Transaction List:
       </div>
-
-
       <div v-if="list_show"> </div>
       <div class="container form_row">
       <div class="label half">
@@ -86,17 +120,13 @@
             </thead>
           </table>
 
-      <div class = "Months">
-      </div>
-
         <div class="post_div" v-for="post in post_list">
           <div class="post_title">${post.post_title}</div>
           <div class="post_content">${post.post_category}</div>
           <div class="post_content">${post.post_total}</div>
-          <div class="post_expense">${post.post_expense}</div>
           <div class="attributes">
 
-            <!-- Code for likes.
+            <!-- Code for likes. -->
             <div class="likers">
               <span class="show_likers">
                 <span v-if="is_logged_in" class="toggle_like"
@@ -113,7 +143,7 @@
               </span>
             </div>
 
-             Code for start ratings.
+            <!-- Code for start ratings.
             <div v-if="is_logged_in" class="star_rating">
               <span v-on:mouseout="stars_out(post._idx)">
                 <span v-on:mouseover="stars_over(post._idx, idx)"
@@ -124,13 +154,16 @@
                 </span>
               </span>
             </div> -->
-          </div>
 
+          </div>
         </div>
       </div>
     </div>
+
+
     <div class="label half">
       <table class = "center fill">
+
             <thead>
               <tr> <td>Cost Breakdown </td> </tr>
             </thead>
@@ -138,6 +171,16 @@
           <center>Money</center>
       <div id="myMoney"><!-- Plotly chart will be drawn inside this DIV --></div>
       <center>Expense Breakdown</center>
+      <center>
+      <form id="form" onsubmit="return false;">
+   Rent <input  type="number" id="userInput" />
+    Gas<input  type="number" id="userInput2" />
+    Food<input  type="number" id="userInput3" />
+    Bills<input  type="number" id="userInput4" />
+    Etc<input  type="number" id="userInput5" />
+    <input type="submit" onclick="othername();" />
+</form>
+</center>
       <div id="myCost"><!-- Plotly chart will be drawn inside this DIV --></div>
 
   </div>
@@ -150,32 +193,67 @@
 
 <script src="{{=URL('static', 'js/default_index.js')}}"></script>
 <script>
-    <!-- JAVASCRIPT CODE GOES HERE -->
-      var data = [{
-  values: [19, 26, 55],
-  labels: ['Restaurants', 'Gas', 'Groceries'],
-  type: 'pie'
-}];
-
-Plotly.newPlot('myCost', data);
   </script>
 
   <script>
-
-
+      function totalMoney() {
+        var input_res = [];
+        var i;
+    var input = document.getElementById("userInputT").value;
+input_res[i]=input;
+i++;
 var trace2 = {
-  x: [0,1, 2, 3, 4],
-  y: [0, 10000, 9900, 8000, 9400],
+  x: [0,1, 2, 3, 4, 5, 6,7,8,9,10,11],
+  y: [input_res[i],input_res[1]],
   mode: 'lines'
 };
-
-
-
 var data = [ trace2 ];
-
 var layout = {
   title:'Line and Scatter Plot'
 };
 Plotly.newPlot('myMoney', data);
-  </script>
+      }</script>
+
+  <script>
+      function othername() {
+    var input = document.getElementById("userInput").value;
+    var input2 = document.getElementById("userInput2").value;
+    var input3 = document.getElementById("userInput3").value;
+    var input4 = document.getElementById("userInput4").value;
+    var input5 = document.getElementById("userInput5").value;
+    var test = input;
+      var data = [{
+  values: [input, input2, input3,input4,input5],
+  labels: ['Rent', 'Gas', 'Groceries/Food','Bills','etc'],
+  type: 'pie'
+}];
+Plotly.newPlot('myCost', data);
+}</script>
+
+<script>
+function makeplot() {
+  Plotly.d3.csv("https://raw.githubusercontent.com/plotly/datasets/master/2014_apple_stock.csv", function(data){ processData(data) } );
+};
+function processData(allRows) {
+  console.log(allRows);
+  var x = [], y = [], standard_deviation = [];
+  for (var i=0; i<allRows.length; i++) {
+    row = allRows[i];
+    x.push( row['AAPL_x'] );
+    y.push( row['AAPL_y'] );
+  }
+  console.log( 'X',x, 'Y',y, 'SD',standard_deviation );
+  makePlotly( x, y, standard_deviation );
+}
+function makePlotly( x, y, standard_deviation ){
+  var plotDiv = document.getElementById("plot");
+  var traces = [{
+    x: x,
+    y: y
+  }];
+  Plotly.newPlot('myDiv', traces,
+    {title: 'Plotting CSV data from AJAX call'});
+};
+  makeplot();
+</script>
 </body>
