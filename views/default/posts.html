@@ -57,7 +57,7 @@
           <div class="threequarters">
             <div class="submit">
               <button id="debit_btn" v-on:click="add_nums()" onclick="totalMoney();">Debit</button>
-              <button id="credit_btn" v-on:click="sub_nums()"onclick="totalMoney();">Credit</button>
+              <button id="credit_btn" v-on:click="sub_nums()"onclick="totalMoneySub();">Credit</button>
             </div>
           </div>
         </div>
@@ -170,11 +170,12 @@
 
   <script>
       var input_res = [];
-      var i = 0;
+      var i = 1;
+      input_res[0] = 0;
       function totalMoney() {
     var input = document.getElementById("userInputT").value;
-input_res[i] = input;
-i++;
+    input_res[i] = Number(input) + Number(input_res[i - 1]);
+    i++;
 
 var trace2 = {
   x: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12,13,14,15,16,17],

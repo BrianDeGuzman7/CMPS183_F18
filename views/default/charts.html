@@ -1,245 +1,58 @@
 {{extend 'layout.html'}}
 {{block head}}
-<script src="{{=URL('static', 'js/vue.js')}}"></script>
-<script>
-    var add_post_url = "{{=URL('api', 'add_post', user_signature=True)}}";
-    var get_post_list_url = "{{=URL('api', 'get_post_list')}}";
-    // Like callbacks.
-    var set_like_url = "{{=URL('api', 'set_like', user_signature=True)}}";
-    var get_likers_url = "{{=URL('api', 'get_likers')}}"
-    // Stars.
-    var set_stars_url = "{{=URL('api', 'set_stars', user_signature=True)}}";
-    var is_logged_in = {{='false' if auth.user is None else 'true'}};
-</script>
-<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-<script src="plotly-latest.min.js"></script>
-  <!-- Numeric JS -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/numeric/1.2.6/numeric.min.js"></script>
 {{end}}
-<head>
-    <script type="text/javascript">
-        window.onload = function() {
-            var dps = []; //dataPoints. 
 
-            var chart = new CanvasJS.Chart("chartContainer", {
-                title: {
-                    text: "Money"
-                },
-                data: [{
-                    type: "line",
-                    dataPoints: dps
-                }]
-            });
-              
-            function addDataPointsAndRender() {
-              var i;
-                yValue = Number(document.getElementById("yValue").value);
-                xValue = i+1;
-                dps.push({
-                    x: i,
-                    y:yValue,
-                    i: i+1,
-                });
-                chart.render();
-            }
+<h2>Uploading a CSV File</h2>
 
-            var renderButton = document.getElementById("renderButton");
-            renderButton.addEventListener("click", addDataPointsAndRender);
-        }
-    </script>
-    <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-    
-</head>
+<b>CSV File</b> <input type="file" id="csvfile"> 
+<br />
 
-<body>
-    X Value:
-    <input id="xValue" type="number" step="any" placeholder="Enter X-Value"> Y Value:
-    <input id="yValue" type="number" step="any" placeholder="Enter Y-Value">
-    <button id="renderButton">Add DataPoint & Render</button>
-    <div id="chartContainer" style="height: 270px; width: 100%;">
-    </div>
-<div class="main_content">
+<b>Header</b> <select id="header">
+<option>true</option>
+<option>false</option>
+</select> 
 
-    <div id="vue-div" class="display:none">
-      <!-- Your code goes here.  Remember to call $("#vue-div").show() once you get the data for the first time. -->
+<br />
+<button id="submitbutton" type="button">read.csv</button>
 
-      <!-- First, let's add a form to insert blog posts. -->
-      <div id="add_post" style="display:none">
-        <div class="container form_row">
-          <div class="label quarter">
-            Transaction Name:
-          </div>
-          <div class="form threequarters">
-            <input v-model="form_title" placeholder="Enter Transaction Title"/>
-          </div>
-        </div>
-        <div class="container form_row">
-          <div class="label quarter">
-            Transaction Label:
-          </div>
-          <div class="form threequarters">
-            <select name ="Transaction_Type" input-type="number" v-model="form_category">
-              <option value="Restaurants">Restaurants</option>
-              <option value="Gas">Gas</option>
-              <option value="Groceries">Groceries</option>
-            </select>
-          </div>
-        </div>
-        <div class="container form_row">
-          <div class="label quarter">
-            Enter Amount:
-          </div>
-          <div class="form threequarters">
-            <textarea v-model="form_amount" placeholder="Enter Amount of Money" id="userInputT"></textarea>
-          </div>
-        </div>
-        <div class="container form_row"><div class="quarter"></div>
-          <div class="threequarters">
-            <div class="submit">
-              <button id="debit_btn" v-on:click="add_nums()" onclick="totalMoney();">Debit</button>
-              <button id="credit_btn" v-on:click="sub_nums()"onclick="totalMoney();">Credit</button>
-            </div>
-          </div>
-        </div>
-      </div>
+<pre><code id="output"></code></pre>
+<script>
+//because read.csv is in utils
+ocpu.seturl("//public.opencpu.org/ocpu/library/utils/R")
 
-      <!-- Message in case there are no posts. -->
-      <div v-if="post_list.length === 0">There are no posts.</div>
+//actual handler
+$("#submitbutton").on("click", function(){
 
-      <!-- We display the posts. -->
-
-
-      <div class = "Transaction List">
-        Transaction List:
-      </div>
-      <div v-if="list_show"> </div>
-      <div class="container form_row">
-      <div class="label half">
-      <div id="post_list">
-          <table class = "center fill">
-            <thead>
-              <tr> <td>Transaction Name </td> <td>Transaction Amount </td> </tr>
-            </thead>
-          </table>
-
-        <div class="post_div" v-for="post in post_list">
-          <div class="post_title">${post.post_title}</div>
-          <div class="post_content">${post.post_category}</div>
-          <div class="post_content">${post.post_total}</div>
-          <div class="attributes">
-
-            <!-- Code for likes. -->
-            <div class="likers">
-              <span class="show_likers">
-                <span v-if="is_logged_in" class="toggle_like"
-                      v-on:mouseover="like_mouseover(post._idx); show_likers(post._idx)"
-                      v-on:mouseout="hide_likers(post._idx); like_mouseout(post._idx)"
-                      v-on:click="like_click(post._idx)">
-                  <i v-if="post._smile" class="fa fa-smile-o" v-bind:class="{changed: post._smile === !post.like}"></i>
-                  <i v-if="!post._smile" class="fa fa-meh-o" v-bind:class="{changed: post._smile === !post.like}"></i>
-                </span>
-                <span v-if="post._show_likers" class="likers_list">
-                  <span v-for="liker in post._likers" class="liker">${liker}</span>
-                  <span v-if="post._likers.length > 0">liked it.</span>
-                </span>
-              </span>
-            </div>
-
-            <!-- Code for start ratings.
-            <div v-if="is_logged_in" class="star_rating">
-              <span v-on:mouseout="stars_out(post._idx)">
-                <span v-on:mouseover="stars_over(post._idx, idx)"
-                      v-on:click="set_stars(post._idx, idx)"
-                      v-for="idx in star_indices">
-                    <i v-if="idx <= post._num_stars_display" class="fa fa-star"></i>
-                    <i v-if="idx > post._num_stars_display" class="fa fa-star-o"></i>
-                </span>
-              </span>
-            </div> -->
-
-          </div>
-        </div>
-      </div>
-    </div>
-
-
-    <div class="label half">
-      <table class = "center fill">
+    //arguments
+    var myheader = $("#header").val() == "true";
+    var myfile = $("#csvfile")[0].files[0];
         
-            <thead>
-              <tr> <td>Cost Breakdown </td> </tr>
-            </thead>
-          </table>
-          <center>Money</center>
-      <div id="myMoney"><!-- Plotly chart will be drawn inside this DIV --></div>
-      <center>Expense Breakdown</center>
-      <center>
-      <form id="form" onsubmit="return false;">
-   Rent <input  type="number" id="userInput" />
-    Gas<input  type="number" id="userInput2" />
-    Food<input  type="number" id="userInput3" />
-    Bills<input  type="number" id="userInput4" />
-    Etc<input  type="number" id="userInput5" />
-    <input type="submit" onclick="othername();" />
-</form>
-</center>
-      <div id="myCost"><!-- Plotly chart will be drawn inside this DIV --></div>
+    if(!myfile){
+        alert("No file selected.");
+        return;
+    }
 
-  </div>
-    </div>
+    //disable the button during upload
+    $("#submitbutton").attr("disabled", "disabled");
 
-  </div>
-
-
-</div>
-
-<script src="{{=URL('static', 'js/default_index.js')}}"></script>
-<script>
-
-  </script>
-
-  <script>
-      function totalMoney() {
-        var input_res = [];
-        var i;
-    var input = document.getElementById("userInputT").value;
-input_res[i]=input;
-i++;
-var trace2 = {
-  x: [0,1, 2, 3, 4, 5, 6,7,8,9,10,11],
-  y: [input_res[i],input_res[1]],
-  mode: 'lines'
-};
-
-
-
-var data = [ trace2 ];
-
-var layout = {
-  title:'Line and Scatter Plot'
-};
-Plotly.newPlot('myMoney', data);
-      }</script>
-
-  <script>
-      function othername() {
-    var input = document.getElementById("userInput").value;
-    var input2 = document.getElementById("userInput2").value;
-    var input3 = document.getElementById("userInput3").value;
-    var input4 = document.getElementById("userInput4").value;
-    var input5 = document.getElementById("userInput5").value;
-    var test = input;
-
-      var data = [{
-  values: [input, input2, input3,input4,input5],
-  labels: ['Rent', 'Gas', 'Groceries/Food','Bills','etc'],
-  type: 'pie'
-}];
-
-Plotly.newPlot('myCost', data);
-}</script>
-
-<script>
-
+    //perform the request
+    var req = ocpu.call("read.csv", {
+        "file" : myfile,
+        "header" : myheader
+    }, function(session){
+        session.getConsole(function(outtxt){
+            $("#output").text(outtxt); 
+        });
+    });
+        
+    //if R returns an error, alert the error message
+    req.fail(function(){
+        alert("Server error: " + req.responseText);
+    });
+    
+    //after request complete, re-enable the button 
+    req.always(function(){
+        $("#submitbutton").removeAttr("disabled")
+    });        
+});  
 </script>
-</body>
