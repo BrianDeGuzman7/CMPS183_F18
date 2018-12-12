@@ -189,7 +189,8 @@ var app = function() {
             list_show: true,
             post_list: [],
             star_indices: [1, 2, 3, 4, 5],
-            expense_list: []
+            expense_list: [],
+            is_logged_in: false,
         },
         methods: {
             add_post: self.add_post,

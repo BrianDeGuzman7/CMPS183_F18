@@ -35,6 +35,9 @@ def user():
 def posts():
     return dict()
 
+def add_transaction():
+    return dict()
+
 @cache.action()
 def download():
     """

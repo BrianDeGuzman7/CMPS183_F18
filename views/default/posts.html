@@ -11,6 +11,8 @@
     var set_stars_url = "{{=URL('api', 'set_stars', user_signature=True)}}";
     var is_logged_in = {{='false' if auth.user is None else 'true'}};
 </script>
+
+
 <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 <script src="plotly-latest.min.js"></script>
   <!-- Numeric JS -->
@@ -50,56 +52,26 @@
 </head>
 
 <body>
+
     X Value:
     <input id="xValue" type="number" step="any" placeholder="Enter X-Value"> Y Value:
     <input id="yValue" type="number" step="any" placeholder="Enter Y-Value">
     <button id="renderButton">Add DataPoint & Render</button>
     <div id="chartContainer" style="height: 270px; width: 100%;">
     </div>
+
+
 <div class="main_content">
 
     <div id="vue-div" class="display:none">
       <!-- Your code goes here.  Remember to call $("#vue-div").show() once you get the data for the first time. -->
 
       <!-- First, let's add a form to insert blog posts. -->
-      <div id="add_post" style="display:none">
-        <div class="container form_row">
-          <div class="label quarter">
-            Transaction Name:
-          </div>
-          <div class="form threequarters">
-            <input v-model="form_title" placeholder="Enter Transaction Title"/>
-          </div>
-        </div>
-        <div class="container form_row">
-          <div class="label quarter">
-            Transaction Label:
-          </div>
-          <div class="form threequarters">
-            <select name ="Transaction_Type" input-type="number" v-model="form_category">
-              <option value="Restaurants">Restaurants</option>
-              <option value="Gas">Gas</option>
-              <option value="Groceries">Groceries</option>
-            </select>
-          </div>
-        </div>
-        <div class="container form_row">
-          <div class="label quarter">
-            Enter Amount:
-          </div>
-          <div class="form threequarters">
-            <textarea v-model="form_amount" placeholder="Enter Amount of Money" id="userInputT"></textarea>
-          </div>
-        </div>
-        <div class="container form_row"><div class="quarter"></div>
-          <div class="threequarters">
-            <div class="submit">
-              <button id="debit_btn" v-on:click="add_nums()" onclick="totalMoney();">Debit</button>
-              <button id="credit_btn" v-on:click="sub_nums()"onclick="totalMoney();">Credit</button>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div class = "box_text">
+        <h1> Budget Tracker </h1>
+    </div>
+
+    <a href="{{=URL('default', 'add_transaction')}}" class="btn"> Add Transaction</a>
 
       <!-- Message in case there are no posts. -->
       <div v-if="post_list.length === 0">There are no posts.</div>
@@ -161,7 +133,7 @@
     </div>
 
 
-    <div class="label half">
+  <div class="label half">
       <table class = "center fill">
 
             <thead>
@@ -170,27 +142,27 @@
           </table>
           <center>Money</center>
       <div id="myMoney"><!-- Plotly chart will be drawn inside this DIV --></div>
-      <center>Expense Breakdown</center>
+     <center>Expense Breakdown</center>
       <center>
       <form id="form" onsubmit="return false;">
-   Rent <input  type="number" id="userInput" />
-    Gas<input  type="number" id="userInput2" />
-    Food<input  type="number" id="userInput3" />
-    Bills<input  type="number" id="userInput4" />
-    Etc<input  type="number" id="userInput5" />
-    <input type="submit" onclick="othername();" />
-</form>
-</center>
-      <div id="myCost"><!-- Plotly chart will be drawn inside this DIV --></div>
+        Rent <input  type="number" id="userInput" />
+        Gas<input  type="number" id="userInput2" />
+        Food<input  type="number" id="userInput3" />
+        Bills<input  type="number" id="userInput4" />
+        Etc<input  type="number" id="userInput5" />
+        <input type="submit" onclick="othername();" />
+      </form>
+      </center>
+      <div id="myCost"><!-- Plotly chart will be drawn inside this DIV --> </div>
 
   </div>
+
     </div>
 
   </div>
 
 
 </div>
-
 <script src="{{=URL('static', 'js/default_index.js')}}"></script>
 <script>
   </script>

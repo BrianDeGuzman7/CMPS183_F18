@@ -1,0 +1,72 @@
+{{extend 'layout.html'}}
+{{block head}}
+<script src="{{=URL('static', 'js/vue.js')}}"></script>
+<script>
+
+    var add_post_url = "{{=URL('api', 'add_post', user_signature=True)}}";
+    var get_post_list_url = "{{=URL('api', 'get_post_list')}}";
+
+    var is_logged_in = {{='false' if auth.user is None else 'true'}};
+
+</script>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script src="plotly-latest.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/numeric/1.2.6/numeric.min.js"></script>
+<script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+{{end}}
+
+<div class="main_content">
+
+    <div id="vue-div" class="display:none">
+      <!-- Your code goes here.  Remember to call $("#vue-div").show() once you get the data for the first time. -->
+
+      <!-- First, let's add a form to insert blog posts. -->
+    <div class = "box_text">
+        <h1> Budget Tracker </h1>
+    </div>
+
+      <div id="add_post" style="display:none">
+        <div class="container form_row">
+          <div class="label quarter">
+            Transaction Name:
+          </div>
+          <div class="form threequarters">
+            <input v-model="form_title" placeholder="Enter Transaction Title"/>
+          </div>
+        </div>
+        <div class="container form_row">
+          <div class="label quarter">
+            Transaction Label:
+          </div>
+          <div class="form threequarters">
+            <select name ="Transaction_Type" input-type="number" v-model="form_category">
+              <option value="Restaurants">Restaurants</option>
+              <option value="Gas">Gas</option>
+              <option value="Groceries">Groceries</option>
+            </select>
+          </div>
+        </div>
+        <div class="container form_row">
+          <div class="label quarter">
+            Enter Amount:
+          </div>
+          <div class="form threequarters">
+            <textarea v-model="form_amount" placeholder="Enter Amount of Money" id="userInputT"></textarea>
+          </div>
+        </div>
+        <div class="container form_row"><div class="quarter"></div>
+          <div class="threequarters">
+            <div class="submit">
+              <a v-on:click="add_nums()" href="{{=URL('default', 'posts')}}"  class="btn" >Add</a>
+              <button id="debit_btn" v-on:click="add_nums()" onclick="totalMoney()" on:click: href="{{=URL('default', 'posts')}}">Debit</button>
+              <button id="credit_btn" v-on:click="sub_nums()" onclick="totalMoney()" on:click: href="{{=URL('default', 'posts')}}">Credit</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+  </div>
+
+
+</div>
+<script src="{{=URL('static', 'js/default_index.js')}}"></script>
