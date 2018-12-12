@@ -214,27 +214,6 @@ var layout = {
 };
 Plotly.newPlot('myMoney', data);
       }
-      function totalMoney() {
-    var input = document.getElementById("userInputT").value;
-    input_res[i] = Number(input) + Number(input_res[i - 1]);
-    i++;
-
-var trace2 = {
-  x: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12,13,14,15,16,17],
-  y: [input_res[0],input_res[1],input_res[2],input_res[3],input_res[4],input_res[5],input_res[6],input_res[7],input_res[8],input_res[9],input_res[10],input_res[11],input_res[12],input_res[13]],
-  mode: 'lines',
-};
-
-
-
-var data = [ trace2 ];
-
-var layout = {
-  title:'Line and Scatter Plot'
-
-};
-Plotly.newPlot('myMoney', data);
-      }
             function totalMoneySub() {
     var input = document.getElementById("userInputT").value;
     input_res[i] =  Number(input_res[i - 1]) - Number(input);
