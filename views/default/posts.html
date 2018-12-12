@@ -84,19 +84,7 @@
           </table>
           <center>Money</center>
       <div id="myMoney"><!-- Plotly chart will be drawn inside this DIV --></div>
-     <center>Expense Breakdown</center>
-      <center>
-      <form id="form" onsubmit="return false;">
-        Rent <input  type="number" id="userInput" />
-        Gas<input  type="number" id="userInput2" />
-        Food<input  type="number" id="userInput3" />
-        Bills<input  type="number" id="userInput4" />
-        Etc<input  type="number" id="userInput5" />
-        <input type="submit" onclick="othername();" />
-      </form>
-      </center>
-      <div id="myCost"><!-- Plotly chart will be drawn inside this DIV --> </div>
-
+   
   </div>
 
     </div>
@@ -190,24 +178,6 @@ Plotly.newPlot('myMoney', data);
       }
       </script>
 
-  <script>
-      function othername() {
-    var input = document.getElementById("userInput").value;
-    var input2 = document.getElementById("userInput2").value;
-    var input3 = document.getElementById("userInput3").value;
-    var input4 = document.getElementById("userInput4").value;
-    var input5 = document.getElementById("userInput5").value;
-    var test = input;
-      var data = [{
-  values: [input, input2, input3,input4,input5],
-  labels: ['Rent', 'Gas', 'Groceries/Food','Bills','etc'],
-  type: 'pie'
-}];
-var layout = {
-  title:'Expense Breakdown'
-};
-Plotly.newPlot('myCost', data, layout);
-}</script>
 
 <script>
 </script>
