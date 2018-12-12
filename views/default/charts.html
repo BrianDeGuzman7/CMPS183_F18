@@ -121,10 +121,8 @@
               <tr> <td>Transaction Name </td> <td>Transaction Amount </td> </tr>
             </thead>
           </table>
-         
-          
+
         <div class="post_div" v-for="post in post_list">
-            <div class="bordered">
           <div class="post_title">${post.post_title}</div>
           <div class="post_content">${post.post_category}</div>
           <div class="post_content">${post.post_total}</div>
@@ -162,7 +160,6 @@
           </div>
         </div>
       </div>
-      </div>
     </div>
 
 
@@ -195,14 +192,7 @@
 
 
 </div>
-<style>
-    .bordered {
-      width: 500px;
-      height: 60px;
-      padding: 2px;
-      border: 3px solid rgb(88, 129, 5);
-    }
-  </style>
+
 <script src="{{=URL('static', 'js/default_index.js')}}"></script>
 <script>
 
