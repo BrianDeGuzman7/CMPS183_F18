@@ -1,7 +1,24 @@
 {{extend 'layout.html'}}
 {{block head}}
+<head>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script src="plotly-latest.min.js"></script>
+    </head>
 {{end}}
+<h2>Expense Breakdown</h2>
+      <center>
+      <form id="form" onsubmit="return false;">
+   Rent <input  type="number" id="userInput" />
+    Gas<input  type="number" id="userInput2" />
+    Food<input  type="number" id="userInput3" />
+    Bills<input  type="number" id="userInput4" />
+    Etc<input  type="number" id="userInput5" />
+    <input type="submit" onclick="othername();" />
+</form>
+</center>
+      <div id="myCost"><!-- Plotly chart will be drawn inside this DIV --></div>
 
+  </div>
 <h2>Uploading a CSV File</h2>
 
 <b>CSV File</b> <input type="file" id="csvfile"> 
@@ -56,3 +73,23 @@ $("#submitbutton").on("click", function(){
     });        
 });  
 </script>
+
+
+  <script>
+      function othername() {
+    var input = document.getElementById("userInput").value;
+    var input2 = document.getElementById("userInput2").value;
+    var input3 = document.getElementById("userInput3").value;
+    var input4 = document.getElementById("userInput4").value;
+    var input5 = document.getElementById("userInput5").value;
+    var test = input;
+      var data = [{
+  values: [input, input2, input3,input4,input5],
+  labels: ['Rent', 'Gas', 'Groceries/Food','Bills','etc'],
+  type: 'pie'
+}];
+var layout = {
+  title:'Expense Breakdown'
+};
+Plotly.newPlot('myCost', data, layout);
+}</script>
