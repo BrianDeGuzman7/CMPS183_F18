@@ -13,7 +13,6 @@ def add_post():
     # We return the id of the new post, so we can insert it along all the others.
     return response.json(dict(post_id=post_id))
 
-
 def get_post_list():
     results = []
     if auth.user is None:
