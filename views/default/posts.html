@@ -16,48 +16,8 @@
   <!-- Numeric JS -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/numeric/1.2.6/numeric.min.js"></script>
 {{end}}
-<head>
-    <script type="text/javascript">
-        window.onload = function() {
-            var dps = []; //dataPoints. 
-
-            var chart = new CanvasJS.Chart("chartContainer", {
-                title: {
-                    text: "Money"
-                },
-                data: [{
-                    type: "line",
-                    dataPoints: dps
-                }]
-            });
-              
-            function addDataPointsAndRender() {
-              var i;
-                yValue = Number(document.getElementById("yValue").value);
-                xValue = i+1;
-                dps.push({
-                    x: i,
-                    y:yValue,
-                    i: i+1,
-                });
-                chart.render();
-            }
-
-            var renderButton = document.getElementById("renderButton");
-            renderButton.addEventListener("click", addDataPointsAndRender);
-        }
-    </script>
-    <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-    
-</head>
 
 <body>
-    X Value:
-    <input id="xValue" type="number" step="any" placeholder="Enter X-Value"> Y Value:
-    <input id="yValue" type="number" step="any" placeholder="Enter Y-Value">
-    <button id="renderButton">Add DataPoint & Render</button>
-    <div id="chartContainer" style="height: 270px; width: 100%;">
-    </div>
 <div class="main_content">
 
     <div id="vue-div" class="display:none">
@@ -90,7 +50,7 @@
             Enter Amount:
           </div>
           <div class="form threequarters">
-            <textarea v-model="form_amount" placeholder="Enter Amount of Money" id="userInputT"></textarea>
+            <textarea type = "number" v-model="form_amount" type="number" placeholder="Enter Amount of Money" id="userInputT"></textarea>
           </div>
         </div>
         <div class="container form_row"><div class="quarter"></div>
@@ -104,7 +64,7 @@
       </div>
 
       <!-- Message in case there are no posts. -->
-      <div v-if="post_list.length === 0">There are no posts.</div>
+      <div v-if="post_list.length === 0">There are no Transactions.</div>
 
       <!-- We display the posts. -->
 
@@ -209,16 +169,17 @@
   </script>
 
   <script>
+      var input_res = [];
+      var i = 0;
       function totalMoney() {
-        var input_res = [];
-        var i;
     var input = document.getElementById("userInputT").value;
-input_res[i]=input;
+input_res[i] = input;
 i++;
+
 var trace2 = {
-  x: [0,1, 2, 3, 4, 5, 6,7,8,9,10,11],
-  y: [input_res[i],input_res[1]],
-  mode: 'lines'
+  x: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12,13,14,15,16,17],
+  y: [input_res[0],input_res[1],input_res[2],input_res[3],input_res[4],input_res[5],input_res[6],input_res[7],input_res[8],input_res[9],input_res[10],input_res[11],input_res[12],input_res[13]],
+  mode: 'lines',
 };
 
 
@@ -227,6 +188,7 @@ var data = [ trace2 ];
 
 var layout = {
   title:'Line and Scatter Plot'
+
 };
 Plotly.newPlot('myMoney', data);
       }</script>
@@ -239,14 +201,16 @@ Plotly.newPlot('myMoney', data);
     var input4 = document.getElementById("userInput4").value;
     var input5 = document.getElementById("userInput5").value;
     var test = input;
-
       var data = [{
   values: [input, input2, input3,input4,input5],
   labels: ['Rent', 'Gas', 'Groceries/Food','Bills','etc'],
   type: 'pie'
 }];
+var layout = {
+  title:'Expense Breakdown'
 
-Plotly.newPlot('myCost', data);
+};
+Plotly.newPlot('myCost', data, layout);
 }</script>
 
 <script>
