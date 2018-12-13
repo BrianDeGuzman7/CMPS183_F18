@@ -135,13 +135,7 @@ var app = function() {
         enumerate(self.vue.post_list);
         // We initialize the smile status to match the like. 
         self.vue.post_list.map(function (e) {
-            // I need to use Vue.set here, because I am adding a new watched attribute
-            // to an object.  See https://vuejs.org/v2/guide/list.html#Object-Change-Detection-Caveats
-            // Did I like it? 
-            // If I do e._smile = e.like, then Vue won't see the changes to e._smile . 
-            Vue.set(e, '_smile', e.like); 
 
-            Vue.set(e, '_debit', false);
         });
     };
 

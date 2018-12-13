@@ -6,11 +6,6 @@
     var get_post_list_url = "{{=URL('api', 'get_post_list')}}";
 
     var delete_list_url = "{{=URL('api', 'delete_db')}}";
-    // Like callbacks.
-    var set_like_url = "{{=URL('api', 'set_like', user_signature=True)}}";
-    var get_likers_url = "{{=URL('api', 'get_likers')}}"
-    // Stars.
-    var set_stars_url = "{{=URL('api', 'set_stars', user_signature=True)}}";
     var is_logged_in = {{='false' if auth.user is None else 'true'}};
 </script>
 
@@ -26,9 +21,7 @@
 <div class="main_content">
 
     <div id="vue-div" class="display:none">
-      <!-- Your code goes here.  Remember to call $("#vue-div").show() once you get the data for the first time. -->
 
-      <!-- First, let's add a form to insert blog posts. -->
     <div class = "box_text">
       <div v-if="post_list.length > 0"><h1>Remaining Budget: $${post_total}</h1></div>
       <div v-if="post_list.length === 0"><h1>Budget not set</h1></div>
@@ -66,27 +59,13 @@
                         </tr>
                       </table>
                     </div>
-          <!--<div class="post_content">Total Budget: ${post.post_budget}</div>-->
                     <div class="attributes">
                     </div>
                 </div>
             </div>
             </div>
 
-      </div>
-
-  <div class="label half">
-      <table class = "center fill">
-
-            <thead>
-              <tr> <td>Cost Breakdown </td> </tr>
-            </thead>
-          </table>
-          <center>Money</center>
-      <div id="myMoney"><!-- Plotly chart will be drawn inside this DIV --></div>
-   
-  </div>
-
+        </div>
     </div>
 
   </div>
