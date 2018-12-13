@@ -48,6 +48,9 @@ var app = function() {
 
     self.clear_budget = function() {
         $.getJSON(delete_list_url,
+            function (data){
+                self.get_posts();
+            }
         );
     };
 

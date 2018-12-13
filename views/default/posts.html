@@ -36,7 +36,7 @@
 
     <a href="{{=URL('default', 'add_transaction')}}" class="btn"> Add Transaction</a>
     <a href="{{=URL('default', 'add_budget')}}" class="btn"> Add Budget</a>
-    <button class ="clear" v-on:click="clear_budget()" > Clear </button>
+    <button class ="clear" v-on:click="clear_budget()" onClick="window.location.reload()" > Clear </button>
 
     <!-- We display the transactions. -->
     <div class="container form_row">

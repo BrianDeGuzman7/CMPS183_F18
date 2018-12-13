@@ -15,7 +15,7 @@ def add_post():
 
 
 def delete_db():
-    db.post.ALL
+    db(db.post.id > 0).delete()
     return "ok"
 
 def get_post_list():
